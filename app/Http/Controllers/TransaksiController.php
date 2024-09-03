@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\BarangTransaksi;
 use App\Models\Keranjang;
 use App\Models\Transaksi;
@@ -34,6 +35,10 @@ class TransaksiController extends Controller
                 "pcs" => $barang["pcs"]
             ];
 
+                // $barang = Barang::firstWhere("id", $payload["barang_id"]);
+                // $barang->pcs = $barang->pcs - $payload["pcs"];
+                // $barang->save();
+
             
             $barangTransaksi = BarangTransaksi::create($payload);
             $barangs = Keranjang::firstWhere("id", $barangTransaksi->keranjang_id);
@@ -65,13 +70,13 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::where("user_id", $user->id)->get();
 
         return response()->json([
-            "transaksi" => $transaksi
+            "data" => $transaksi
         ], 200);
     }
 
     function Show(Transaksi $transaksi) {
         return response()->json([
-            "data" => $transaksi
+            "datas" => $transaksi
         ], 200);
     }
 

@@ -35,10 +35,11 @@ class BarangController extends Controller
     {
 
         $file = $request->file("image");
-        $extension = $file->extension();
-        $dir = "storage/barang/";
-        $name = Str::random(32) . '.' . $extension;
-        $foto = $dir . $name;
+
+            $extension = $file->extension();
+            $dir = "storage/barang/";
+            $name = Str::random(32) . '.' . $extension;
+            $foto = $dir . $name;
 
         $payload = [
             "nama_produk" => $request->nama_produk,
@@ -52,7 +53,7 @@ class BarangController extends Controller
         $file->move($dir, $name);
 
         return response()->json([
-            "data" => $payload
+            "barangs" => $payload
         ], 201);
     }
 

@@ -47,7 +47,9 @@ class AuthController extends Controller
 
         Hash::make($payload["password"]);
 
-        User::create($payload);
+       $user = User::create($payload);
+
+        return response()->json($user, 201);
     }
 
     function authProfile() {
@@ -55,6 +57,17 @@ class AuthController extends Controller
 
         return response()->json([
             "user" => $user
+        ], 200);
+    }
+
+    function logOut(Request $request) {
+        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            "Body" => [
+                "message" => "Logout success"
+            ]
         ], 200);
     }
 }
